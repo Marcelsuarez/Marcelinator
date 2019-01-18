@@ -1,0 +1,23 @@
+[
+  "!randomfact   ~Gives you a random fact",
+  "!dank     ~Gives you a random hot top 30 submission from r/dankmemes",
+  "!hentai       ~Gives you a random hot top 30 submission from r/hentai",
+  "!uwuify text  ~Type after the uwu to convert the text",
+  "!hello        ~Say hello to me and I say it back!",
+  "!redcomment username ~Retrieve a random reddit comment from inputted username",
+  "!doot         ~I'll throw some skellies your way",
+  "!r34s name    ~Search on /r/rule34 for a character's name, gives random result out of 25 posts",
+  "!8ball msg    ~Have a yes or no question you've been dying to ask? Request my insight on it! ",
+  "!randnumb x y ~ x and y are optional, randnumb by itself will give you a number from 0-100, just putting x will give you 0-x and putting y will give x-y"
+
+
+
+
+
+
+
+
+
+
+
+]
