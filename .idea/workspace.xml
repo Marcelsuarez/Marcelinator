@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="bf3544fe-de37-4673-becc-140878846a80" name="Default Changelist" comment="" />
+    <list default="true" id="bf3544fe-de37-4673-becc-140878846a80" name="Default Changelist" comment="Added lol command and fixed some stuff!">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eightball.json" beforeDir="false" afterPath="$PROJECT_DIR$/eightball.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/helpmenu.json" beforeDir="false" afterPath="$PROJECT_DIR$/helpmenu.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/summonerinfo.py" beforeDir="false" afterPath="$PROJECT_DIR$/summonerinfo.py" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -9,9 +15,9 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/discordapp$main.coverage" NAME="main Coverage Results" MODIFIED="1547753875984" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/discordapp$main.coverage" NAME="main Coverage Results" MODIFIED="1548029654077" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/riotapp$main.coverage" NAME="main Coverage Results" MODIFIED="1547178445941" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/discordapp$summonerinfo.coverage" NAME="summonerinfo Coverage Results" MODIFIED="1547539796721" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/discordapp$summonerinfo.coverage" NAME="summonerinfo Coverage Results" MODIFIED="1548032871737" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="FUSProjectUsageTrigger">
     <session id="-1629773458">
@@ -58,27 +64,34 @@
     <session id="909999860">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="7" />
+          <entry key="project.closed" value="11" />
+          <entry key="project.open.time.1" value="1" />
           <entry key="project.open.time.24" value="1" />
           <entry key="project.open.time.26" value="1" />
           <entry key="project.open.time.30" value="1" />
+          <entry key="project.open.time.31" value="1" />
+          <entry key="project.open.time.35" value="1" />
+          <entry key="project.open.time.37" value="1" />
           <entry key="project.open.time.4" value="1" />
           <entry key="project.open.time.49" value="1" />
           <entry key="project.open.time.51" value="1" />
           <entry key="project.open.time.57" value="1" />
-          <entry key="project.opened" value="7" />
+          <entry key="project.open.time.73" value="1" />
+          <entry key="project.opened" value="12" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="json" value="1208" />
-          <entry key="py" value="2555" />
+          <entry key="json" value="1508" />
+          <entry key="py" value="4648" />
+          <entry key="txt" value="43" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JSON" value="1208" />
-          <entry key="Python" value="2555" />
+          <entry key="JSON" value="1508" />
+          <entry key="PLAIN_TEXT" value="43" />
+          <entry key="Python" value="4648" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -95,11 +108,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="164" column="56" lean-forward="true" selection-start-line="164" selection-start-column="56" selection-end-line="164" selection-end-column="56" />
+            <state relative-caret-position="221">
+              <caret line="172" column="12" lean-forward="true" selection-start-line="172" selection-start-column="12" selection-end-line="172" selection-end-column="12" />
               <folding>
                 <element signature="e#1#15#0" expanded="true" />
               </folding>
@@ -110,13 +123,13 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/eightball.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="442">
-              <caret line="26" column="24" selection-start-line="26" selection-start-column="24" selection-end-line="26" selection-end-column="24" />
+            <state relative-caret-position="544">
+              <caret line="32" column="24" lean-forward="true" selection-start-line="32" selection-start-column="24" selection-end-line="32" selection-end-column="24" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/helpmenu.json">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="68">
@@ -129,7 +142,7 @@
         <entry file="file://$PROJECT_DIR$/factlist.json">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="357">
-              <caret line="21" column="26" lean-forward="true" selection-start-line="21" selection-start-column="26" selection-end-line="21" selection-end-column="26" />
+              <caret line="21" column="26" selection-start-line="21" selection-start-column="26" selection-end-line="21" selection-end-column="26" />
             </state>
           </provider>
         </entry>
@@ -137,12 +150,12 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/summonerinfo.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="7" column="28" lean-forward="true" selection-start-line="7" selection-start-column="28" selection-end-line="7" selection-end-column="28" />
+            <state relative-caret-position="51">
+              <caret line="3" column="13" lean-forward="true" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="13" />
               <folding>
                 <element signature="e#0#35#0" expanded="true" />
-                <marker date="1547676609841" expanded="true" signature="280:350" ph="..." />
-                <marker date="1547676609841" expanded="true" signature="3675:3989" ph="..." />
+                <marker date="1548033394065" expanded="true" signature="462:532" ph="..." />
+                <marker date="1548033394065" expanded="true" signature="4853:5275" ph="..." />
               </folding>
             </state>
           </provider>
@@ -157,14 +170,17 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
+        <option value="$PROJECT_DIR$/factlist.json" />
         <option value="$PROJECT_DIR$/eightball.json" />
         <option value="$PROJECT_DIR$/summonerinfo.py" />
-        <option value="$PROJECT_DIR$/factlist.json" />
-        <option value="$PROJECT_DIR$/helpmenu.json" />
         <option value="$PROJECT_DIR$/main.py" />
+        <option value="$PROJECT_DIR$/helpmenu.json" />
       </list>
     </option>
   </component>
@@ -179,6 +195,7 @@
     <option name="width" value="980" />
     <option name="height" value="1040" />
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
@@ -217,7 +234,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.main">
+  <component name="RunManager" selected="Python.summonerinfo">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="discordapp" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -268,8 +285,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.main" />
         <item itemvalue="Python.summonerinfo" />
+        <item itemvalue="Python.main" />
       </list>
     </recent_temporary>
   </component>
@@ -290,18 +307,18 @@
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2295302" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24630873" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.33617023" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.33617023" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="bottom" id="Terminal" order="11" />
@@ -327,28 +344,38 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/eightball.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="26" column="24" selection-start-line="26" selection-start-column="24" selection-end-line="26" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/factlist.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="357">
-          <caret line="21" column="26" lean-forward="true" selection-start-line="21" selection-start-column="26" selection-end-line="21" selection-end-column="26" />
+          <caret line="21" column="26" selection-start-line="21" selection-start-column="26" selection-end-line="21" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/eightball.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="544">
+          <caret line="32" column="24" lean-forward="true" selection-start-line="32" selection-start-column="24" selection-end-line="32" selection-end-column="24" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/summonerinfo.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="7" column="28" lean-forward="true" selection-start-line="7" selection-start-column="28" selection-end-line="7" selection-end-column="28" />
+        <state relative-caret-position="51">
+          <caret line="3" column="13" lean-forward="true" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="13" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
-            <marker date="1547676609841" expanded="true" signature="280:350" ph="..." />
-            <marker date="1547676609841" expanded="true" signature="3675:3989" ph="..." />
+            <marker date="1548033394065" expanded="true" signature="462:532" ph="..." />
+            <marker date="1548033394065" expanded="true" signature="4853:5275" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="172" column="12" lean-forward="true" selection-start-line="172" selection-start-column="12" selection-end-line="172" selection-end-column="12" />
+          <folding>
+            <element signature="e#1#15#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -357,16 +384,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="4" column="58" lean-forward="true" selection-start-line="4" selection-start-column="58" selection-end-line="4" selection-end-column="58" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="164" column="56" lean-forward="true" selection-start-line="164" selection-start-column="56" selection-end-line="164" selection-end-column="56" />
-          <folding>
-            <element signature="e#1#15#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>

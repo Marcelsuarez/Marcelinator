@@ -3,6 +3,7 @@ import discord
 import random
 import praw
 import json
+import summonerinfo as summ
 
 
 with open('factlist.json') as f:
@@ -26,7 +27,7 @@ reddit = praw.Reddit(client_id=tokenDict['redditid'],
 client = discord.Client()
 
 
-filterList = []
+filterList = [] # Not in use yet
 
 def uwuify(words):      # don't ask why I made this
 
@@ -72,13 +73,12 @@ async def on_message(message):
         msg = 'Ouch my bones'
         await client.send_message(message.channel, msg)
 
-
     if message.content.startswith('!doot'):
         msg = '<:doot:495351513267568650> <:doot:495351513267568650>'
         await client.send_message(message.channel, msg)
 
     if message.content.startswith('!uwuify'):
-        word = message.content[7:]  #slice after the uwu, which is the value we want
+        word = message.content[7:]                      #slice after the uwu, which is the value we want
         msg = uwuify(word)
         await client.send_message(message.channel, msg)
 
@@ -99,8 +99,7 @@ async def on_message(message):
             msg = 'Thank you :D'
         await client.send_message(message.channel, msg)
 
-
-    if any(word in message.content for word in filterList):
+    if any(word in message.content for word in filterList):     # Not actually used but functionality is there
 
         await client.delete_message(message)
 
@@ -139,9 +138,10 @@ async def on_message(message):
             msg = 'Sorry your user "{}", was not found'.format(redditorname)
             await client.send_message(message.channel, msg)
 
-    if message.content.startswith('!r34s'):     # the functionality every discord bot should have
+    if message.content.startswith('!r34s'):     # the functionality every discord bot should have, please hire me
         keyword = message.content[6:]
         query = 'title:{} self:no site:i.redd.it OR site:i.imgur.com OR site:imgur.com OR site:gfycat.com'.format(keyword)
+# Search params arent really working for now, but I will keep them incase
         r34list = []
         r34 = reddit.subreddit('rule34')
         try:
@@ -167,6 +167,21 @@ async def on_message(message):
             msg = random.randint(int(numList[1]), int(numList[2]) + 1)
 
         await client.send_message(message.channel, str(msg))
+
+    if message.content.startswith('!lolmatch'):
+        summonerName = message.content[10:]
+        try:
+            msg = summ.getPlayerMatch(summonerName)
+        except Exception:  # Very lazy will fix later
+            await client.send_message(message.channel, 'Sorry try again in a few minutes!')
+
+        if msg == 404:
+            await client.send_message(message.channel, 'Summoner name does not exist in NA')
+        else:
+            msg = summ.transcribeDict(msg)
+            await client.send_message(message.channel, msg)
+
+
 
 
 

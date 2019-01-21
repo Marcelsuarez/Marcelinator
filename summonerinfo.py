@@ -11,9 +11,12 @@ lol = RiotWatcher(tokenDict['league'], v4=True)
 
 region = 'na1'
 
-gameVersion = '9.1.1'
+gameVersion = lol.data_dragon.versions_for_region(region)['n']['champion']
 
 
+
+# python file I made to help me test out the riot api retrieval for use in bot once I know it works
+# Might make it into class?
 
 def getSummonerId(summonerName):
 
@@ -66,9 +69,6 @@ def getItemNames(list):
 
             itemList.append(getItemName(id))
 
-        else:
-
-            pass
 
     return itemList
 
@@ -76,20 +76,26 @@ def getMatchPartDict(matchId):
 
     """Returns a dictionary containing the summoner names of all participants in a match with their participant Id"""
 
+
+
     summonerDict = {}
 
+    i = 0
     match = lol.match.by_id(region, matchId)
 
-    for i in range(0, 10):  # Use this to find corresponding participantId and summonerName
+    for keys in match['participantIdentities']:  # Use this to find corresponding participantId and summonerName
         accountName = match['participantIdentities'][i]['player']['summonerName']
         partId = match['participantIdentities'][i]['participantId']
+        accountName = accountName.upper()   # This is to filter out case sensitivity
 
         summonerDict[accountName] = partId
+        i += 1
+
 
     return summonerDict
 
 
-def getPlayerMatch(summonerName, index=0):
+def getPlayerMatch(summonerName, index=0, pFormat=False):
 
     # index of 0 is the most recent match going up to 100
 
@@ -97,8 +103,12 @@ def getPlayerMatch(summonerName, index=0):
         return
 
     index = int(index)
+    try:
+        matchId = getMatchlist(summonerName)[index]['gameId']
+    except Exception:       # I'm lazy but its checking for a 404 name not found
+        return 404
 
-    matchId = getMatchlist(summonerName)[index]['gameId']
+    summonernameC = summonerName.upper()
 
     print(matchId)
 
@@ -106,7 +116,7 @@ def getPlayerMatch(summonerName, index=0):
 
     summonerDict = getMatchPartDict(matchId)
 
-    idVal = summonerDict[summonerName] - 1
+    idVal = summonerDict[summonernameC] - 1
 
     pStats = match['participants'][idVal]['stats']
 
@@ -124,6 +134,10 @@ def getPlayerMatch(summonerName, index=0):
 
     pTotalGold = pStats['goldEarned']
 
+    mapId = str(match['mapId'])
+
+    mapName = lol.data_dragon.maps(gameVersion)['data'][mapId]['MapName']
+
     pItemList = []
 
     for i in range(0, 7):
@@ -136,12 +150,24 @@ def getPlayerMatch(summonerName, index=0):
 
             pItemList.append(getItemName(itemId))
 
-    if match['gameMode'] != 'ARAM':
+    # 10 is Twisted Treeline
+    # 11 is Summoners rift
+    # 12 is howling abyss
+    # 21 is Nexus Blitz
+
+    if match['mapId'] == 11:
         pWards = pStats['wardsPlaced']
         pCreeps = pStats['totalMinionsKilled'] + pStats['neutralMinionsKilledEnemyJungle'] + pStats['neutralMinionsKilled'] + pStats['neutralMinionsKilledTeamJungle']
-    else:
-        pCreeps = pStats['totalMinionsKilled']
+    elif match['mapId'] == 10:
+        pCreeps = pStats['totalMinionsKilled'] + pStats['neutralMinionsKilledEnemyJungle'] + pStats['neutralMinionsKilled'] + pStats['neutralMinionsKilledTeamJungle']
         pWards = 0
+    elif match['mapId'] == 12:
+        pWards = 0
+        pCreeps = pStats['totalMinionsKilled']
+    elif match['mapId'] == 21:
+        pWards = pStats['wardsPlaced']
+        pCreeps = pStats['totalMinionsKilled'] + pStats['neutralMinionsKilledEnemyJungle'] + pStats['neutralMinionsKilled'] + pStats['neutralMinionsKilledTeamJungle']
+
 
 
     pWin = pStats['win']
@@ -155,17 +181,20 @@ def getPlayerMatch(summonerName, index=0):
     playerDict = {'Name': summonerName, 'Champ': pChampName, 'Items': pItemList,
                   'Gold': pTotalGold, 'CS': pCreeps, 'Kills': pKills, 'Deaths': pDeaths,
                   'Assists': pAssists, 'KDA': pKDA, 'Damage Taken': pDamageTaken,
-                  'Damage Dealt': pTotalDamage, 'Wards Placed': pWards, 'Win': pWin, 'Multi': pMulti}
+                  'Damage Dealt': pTotalDamage, 'Wards Placed': pWards, 'Win': pWin, 'Multi': pMulti, 'Map': mapName}
 
-    pp = pprint.PrettyPrinter(indent=3)
-    playerDict = pp.pformat(playerDict)
+    if pFormat:
+        pp = pprint.PrettyPrinter(indent=3)
+        playerDict = pp.pformat(playerDict)
 
     return playerDict
 
 def transcribeDict(d):
 
-    pString = f"Summoner {d['Name']} went as {d['Champ']} went {d['Kills']}/{d['Deaths']}/{d['Assists']} KDA: {d['KDA']}  CS: {d['CS']} \n" \
-              f" Total Gold: {d['Gold']} Damage Dealt: {d['Damage Dealt']} Damage Taken: {d['Damage Taken']} Wards Placed {d['Wards Placed']}"
+    pString = "Summoner {} went as {} \nhad a score of {}/{}/{}" \
+              " KDA: {}  CS: {} \nTotal Gold: {} Damage Dealt: {} " \
+              "Damage Taken: {} \nWards Placed: {} Map: {} Win: {}"\
+            .format(d['Name'], d['Champ'], d['Kills'], d['Deaths'], d['Assists'], d['KDA'], d['CS'], d['Gold'], d['Damage Dealt'], d['Damage Taken'], d['Wards Placed'], d['Map'], d['Win'])
 
     return pString
 
@@ -173,9 +202,7 @@ def transcribeDict(d):
 
 
 
-
-
-print(getPlayerMatch('Umbreon 62'))
+ # print(transcribeDict(getPlayerMatch('Umbreon 62'))) # line to test script with my summonner name
 
 
 

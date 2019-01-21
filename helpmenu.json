@@ -8,8 +8,8 @@
   "!doot         ~I'll throw some skellies your way",
   "!r34s name    ~Search on /r/rule34 for a character's name, gives random result out of 25 posts",
   "!8ball msg    ~Have a yes or no question you've been dying to ask? Request my insight on it! ",
-  "!randnumb x y ~ x and y are optional, randnumb by itself will give you a number from 0-100, just putting x will give you 0-x and putting y will give x-y"
-
+  "!randnumb x y ~x and y are optional, randnumb by itself will give you a number from 0-100, just putting x will give you 0-x and putting y will give x-y"
+  "!lolmatch summonername ~Get some info from the latest match of the summoner of your choosing! Only for NA"
 
 
 
