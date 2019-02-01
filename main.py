@@ -100,7 +100,6 @@ async def on_message(message):
         await client.send_message(message.channel, msg)
 
     if any(word in message.content for word in filterList):     # Not actually used but functionality is there
-
         await client.delete_message(message)
 
     if message.content.startswith('!dank'):
@@ -138,7 +137,7 @@ async def on_message(message):
             msg = 'Sorry your user "{}", was not found'.format(redditorname)
             await client.send_message(message.channel, msg)
 
-    if message.content.startswith('!r34s'):     # the functionality every discord bot should have, please hire me
+    if message.content.startswith('!r34s'):     # the functionality every discord bot should have, please hire me regardless of this
         keyword = message.content[6:]
         query = 'title:{} self:no site:i.redd.it OR site:i.imgur.com OR site:imgur.com OR site:gfycat.com'.format(keyword)
 # Search params arent really working for now, but I will keep them incase
@@ -172,14 +171,25 @@ async def on_message(message):
         summonerName = message.content[10:]
         try:
             msg = summ.getPlayerMatch(summonerName)
+            if msg == 404:
+                await client.send_message(message.channel, 'Summoner name does not exist in NA')
+            else:
+                msg = summ.transcribeDict(msg)
+                await client.send_message(message.channel, msg)
         except Exception:  # Very lazy will fix later
             await client.send_message(message.channel, 'Sorry try again in a few minutes!')
 
-        if msg == 404:
-            await client.send_message(message.channel, 'Summoner name does not exist in NA')
-        else:
-            msg = summ.transcribeDict(msg)
-            await client.send_message(message.channel, msg)
+    if message.content.startswith('!lolavg'):
+        summonerName = message.content[8:]
+        try:
+            msg = summ.analyzeMatchlist(summonerName)
+            if msg == 404:
+                await client.send_message(message.channel, 'Summoner name does not exist in NA')
+            else:
+                await client.send_message(message.channel, msg)
+        except Exception:
+            await client.send_message(message.channel, 'Sorry try again in a few minutes!')
+
 
 
 
