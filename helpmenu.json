@@ -1,5 +1,5 @@
-[
-  "!randomfact   ~Gives you a random fact",
+{
+  "1" : ["!randomfact   ~Gives you a random fact",
   "!dank     ~Gives you a random hot top 30 submission from r/dankmemes",
   "!hentai       ~Gives you a random hot top 30 submission from r/hentai",
   "!uwuify text  ~Type after the uwu to convert the text",
@@ -10,15 +10,12 @@
   "!8ball msg    ~Have a yes or no question you've been dying to ask? Request my insight on it! ",
   "!randnumb x y ~x and y are optional, randnumb by itself will give you a number from 0-100, just putting x will give you 0-x and putting y will give x-y",
   "!lolmatch summonername ~Get some info from the latest match of the summoner of your choosing! Only for NA",
-  "!lolavg summonername   ~Get some info on the most recent 10 matches the summoner has had on SR! Only for NA"
-
-
-
-
-
-
-
-
-
-
-]
+  "!lolavg summonername   ~Get some info on the most recent 10 matches the summoner has had on SR! Only for NA",
+  "!enhance attachedimage factor ~Type !enhance and attach an image to get an increased contrast version of it, enhance factor optional!",
+  "!greyscale attachedimage ~Type !greyscale and attach an image to get the image in greyscale",
+  "!sharpen attachedimage factor ~Type !sharpen and attach an image to get an increased sharpened version of it, sharpen factor optional!",
+    "!help 2 ~Shows more commands in second help menu"],
+  "2": ["!mememaker template textformat ~Available memes for templates are Tom and Jerry and Expanding Brain, they can be signified by",
+        "tj and eb respectively where the template belongs. The text format follows a unique pattern depending on the template.",
+        "textformat for tj will look like jerrytext:tomtext and for eb it will be text1:text2:text3:text4. The colons act as separators."]
+}

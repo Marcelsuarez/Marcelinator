@@ -21,7 +21,7 @@ region = 'na1'      # Will only search for NA accounts for now to keep it simple
 
 # gameVersion = lol.data_dragon.versions_for_region(region)['n']['champion']
 
-gameVersion = '9.2.1'
+gameVersion = '9.4.1'
 
 today = datetime.now()      # get todays date and time
 

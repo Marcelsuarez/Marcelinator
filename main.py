@@ -1,10 +1,12 @@
-
+import imageinfo as ii
 import discord
 import random
 import praw
 import json
 import summonerinfo as summ
-
+from PIL import Image
+import requests
+from bs4 import BeautifulSoup as bs
 
 with open('factlist.json') as f:
     factlist = json.load(f)
@@ -18,6 +20,8 @@ with open('C:\\Users\\Marcello\\Documents\\Tokens.json') as h:  # this is used t
 
 with open('eightball.json') as j:
     eightball = json.load(j)
+
+
 
 
 reddit = praw.Reddit(client_id=tokenDict['redditid'],
@@ -119,10 +123,19 @@ async def on_message(message):
         await client.send_message(message.channel, submission.url)
 
     if message.content.startswith('!help'):
-        msg = 'Here are all my available commands \n' + '```'
-        for helpcommands in helpmenu:
-            msg = msg + helpcommands + '\n'
-        msg = msg + '```'
+        menuNumb = 0
+        if len(message.content) > 5:
+            menuNumb = message.content[6:]
+        if menuNumb == '2':
+            msg = 'More of my commands \n' + '```diff\n'
+            for helpcommands in helpmenu["2"]:
+                msg = msg + helpcommands + '\n'
+            msg = msg + '```'
+        else:
+            msg = 'Here are all my available commands \n' + '```diff\n'
+            for helpcommands in helpmenu["1"]:
+                msg = msg + helpcommands + '\n'
+            msg = msg + '```'
         await client.send_message(message.channel, msg)
 
     if message.content.startswith('!redcomment'):
@@ -189,6 +202,109 @@ async def on_message(message):
                 await client.send_message(message.channel, msg)
         except Exception:
             await client.send_message(message.channel, 'Sorry try again in a few minutes!')
+
+    if message.content.startswith('!enhance'):
+        contrast = 2.0
+        if len(message.content) > 8:
+            contrast = float(message.content[9:])
+        if contrast > 1000:
+            contrast = 1000
+        try:
+            picurl = message.attachments[0]['url']
+
+        except IndexError:
+            await client.send_message(message.channel, "File not attached or incorrect file! Try again")
+
+        img = ii.getImage(picurl)
+        img = ii.enhanceImage(img, contrast=contrast)
+        img.save('tempimg.png')
+        await client.send_file(message.channel, "tempimg.png", content="Done!", filename="result.png")
+
+    if message.content.startswith('!grayscale'):
+        picurl = message.attachments[0]['url']
+        img = ii.getImage(picurl).convert(mode='RGB')
+        pall = Image.open('templates\\grayscale.png').convert(mode='P')
+        img = ii.quantizetopalette(img, pall)
+        img.save('tempimg.png')
+        await client.send_file(message.channel, "tempimg.png", content="Done!", filename="result.png")
+
+    if message.content.startswith('!sharpen'):
+        sharp = 2.0
+        if len(message.content) > 8:
+            sharp = float(message.content[9:])
+        if sharp > 1000:
+            sharp = 1000
+        try:
+            picurl = message.attachments[0]['url']
+
+        except IndexError:
+            await client.send_message(message.channel, "File not attached or incorrect file! Try again")
+
+        img = ii.getImage(picurl)
+        img = ii.sharpenImage(img, sharp=sharp)
+        img.save('tempimg.png')
+        await client.send_file(message.channel, "tempimg.png", content="Done!", filename="result.png")
+
+    if message.content.startswith('!mememaker'): # This is a fun one
+        tmpltWords = message.content[11:]
+        picTok = tmpltWords[:3]
+        print(picTok)
+        tmpltWords = tmpltWords[3:]
+        tmpltWords = tmpltWords.split(':')
+        if picTok == 'tj ':
+            if len(tmpltWords[0]) > 50 or len(tmpltWords[1]) > 50:
+                await client.send_message(message.channel, "Sorry your inputs are too long!")
+            elif len(tmpltWords) != 2:
+                await client.send_message(message.channel, "Sorry wrong amount of inputs!")
+            else:
+                btText = ii.textSplitter(tmpltWords[0])
+                upText = ii.textSplitter(tmpltWords[1])
+                img = Image.open('templates\\tomjerry.jpg')
+                img = ii.addTj(img, btText, upText)
+                img.save('tempimg.png')
+                await client.send_file(message.channel, "tempimg.png", content="Done!", filename="result.png")
+        elif picTok == 'eb ':
+            if len(tmpltWords[0]) > 50 or len(tmpltWords[1]) > 50 or len(tmpltWords[2]) > 50 or len(tmpltWords[3]) > 50:
+                await client.send_message(message.channel, "Sorry your inputs are too long!")
+            elif len(tmpltWords) != 4:
+                await client.send_message(message.channel, "Sorry wrong amount of inputs!")
+            else:
+                oneText = ii.textSplitter(tmpltWords[0], maxline=2)
+                twoText = ii.textSplitter(tmpltWords[1], maxline=2)
+                threeText = ii.textSplitter(tmpltWords[2], maxline=2)
+                fourText = ii.textSplitter(tmpltWords[3], maxline=2)
+                img = Image.open('templates\\expbrain.png')
+                img = ii.addEb(img, oneText, twoText, threeText, fourText)
+                img.save('tempimg.png')
+                await client.send_file(message.channel, "tempimg.png", content="Done!", filename="result.png")
+        else:
+            await client.send_message(message.channel, "Sorry, wrong template name!")
+
+
+
+
+    # if message.content.startswith('!wiki'):      Upcoming feature in the works
+    #     pageName = message.content[6:]
+    #     if ' ' in pageName:
+    #         pageName = pageName.replace(' ', '_')
+    #     try:
+    #         pageName = 'https://en.wikipedia.org/wiki/' + pageName
+    #     except Exception:
+    #         await client.send_message(message.channel, 'Wiki page not found!')
+    #     pageText = requests.get(pageName).text
+    #     soup = bs(pageText, 'html.parser')
+    #     pageText = soup.get_text()
+    #     pageText = pageText.split('.')
+    #     print(pageText)
+    #     pageSummary = []
+    #     for i in range(0, 8):
+    #         pageSummary.append(pageText[i] + '. ')
+    #     pageSummary = str(pageSummary)
+    #     await client.send_message(message.channel, pageSummary)
+
+
+
+
 
 
 
