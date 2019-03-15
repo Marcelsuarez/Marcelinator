@@ -8,6 +8,8 @@ from PIL import Image
 import requests
 from bs4 import BeautifulSoup as bs
 
+# preliminary imports for all the files
+
 with open('factlist.json') as f:
     factlist = json.load(f)
 
@@ -144,7 +146,7 @@ async def on_message(message):
             redditor1 = reddit.redditor(redditorname)
             commentlist = list(redditor1.comments.hot())
             comment1 = random.choice(commentlist)
-            msg = '```' + comment1.body + '```' + '~ {} in /r/{}'.format(redditorname, comment1.subreddit.display_name)
+            msg = '```' + comment1.body + '```' + '~ {} in /r/{}, replying to "{}"'.format(redditorname, comment1.subreddit.display_name, comment1.submission.title)
             await client.send_message(message.channel, msg)
         except Exception:
             msg = 'Sorry your user "{}", was not found'.format(redditorname)
@@ -152,13 +154,15 @@ async def on_message(message):
 
     if message.content.startswith('!r34s'):     # the functionality every discord bot should have, please hire me regardless of this
         keyword = message.content[6:]
-        query = 'title:{} self:no site:i.redd.it OR site:i.imgur.com OR site:imgur.com OR site:gfycat.com'.format(keyword)
-# Search params arent really working for now, but I will keep them incase
+        query = 'title:{} self:no'.format(keyword)
+        # Search params are now fixed finally!
         r34list = []
         r34 = reddit.subreddit('rule34')
         try:
-            for submission in r34.search(query, params={'include_over_18': 'on'}, limit=25):
-                r34list.append(submission.url)
+            for subn in r34.search(query, params={'include_over_18': 'on'}, limit=35):
+                imgurUrl, redditUrl, gfyUrl = "https://i.imgur.com", "https://i.redd.it", "https://gfycat.com"
+                if subn.url.startswith(imgurUrl) or subn.url.startswith(redditUrl) or subn.url.startswith(gfyUrl):
+                    r34list.append(subn.url)
             r34post = (random.choice(r34list))
             await client.send_message(message.channel, r34post)
 
@@ -248,7 +252,7 @@ async def on_message(message):
     if message.content.startswith('!mememaker'): # This is a fun one
         tmpltWords = message.content[11:]
         picTok = tmpltWords[:3]
-        print(picTok)
+        # print(picTok)
         tmpltWords = tmpltWords[3:]
         tmpltWords = tmpltWords.split(':')
         if picTok == 'tj ':
@@ -269,10 +273,10 @@ async def on_message(message):
             elif len(tmpltWords) != 4:
                 await client.send_message(message.channel, "Sorry wrong amount of inputs!")
             else:
-                oneText = ii.textSplitter(tmpltWords[0], maxline=2)
-                twoText = ii.textSplitter(tmpltWords[1], maxline=2)
-                threeText = ii.textSplitter(tmpltWords[2], maxline=2)
-                fourText = ii.textSplitter(tmpltWords[3], maxline=2)
+                oneText = ii.textSplitter(tmpltWords[0])
+                twoText = ii.textSplitter(tmpltWords[1])
+                threeText = ii.textSplitter(tmpltWords[2])
+                fourText = ii.textSplitter(tmpltWords[3])
                 img = Image.open('templates\\expbrain.png')
                 img = ii.addEb(img, oneText, twoText, threeText, fourText)
                 img.save('tempimg.png')
@@ -283,24 +287,7 @@ async def on_message(message):
 
 
 
-    # if message.content.startswith('!wiki'):      Upcoming feature in the works
-    #     pageName = message.content[6:]
-    #     if ' ' in pageName:
-    #         pageName = pageName.replace(' ', '_')
-    #     try:
-    #         pageName = 'https://en.wikipedia.org/wiki/' + pageName
-    #     except Exception:
-    #         await client.send_message(message.channel, 'Wiki page not found!')
-    #     pageText = requests.get(pageName).text
-    #     soup = bs(pageText, 'html.parser')
-    #     pageText = soup.get_text()
-    #     pageText = pageText.split('.')
-    #     print(pageText)
-    #     pageSummary = []
-    #     for i in range(0, 8):
-    #         pageSummary.append(pageText[i] + '. ')
-    #     pageSummary = str(pageSummary)
-    #     await client.send_message(message.channel, pageSummary)
+
 
 
 

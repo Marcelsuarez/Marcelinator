@@ -21,62 +21,54 @@ region = 'na1'      # Will only search for NA accounts for now to keep it simple
 
 # gameVersion = lol.data_dragon.versions_for_region(region)['n']['champion']
 
-gameVersion = '9.4.1'
+gameVersion = '9.5.1'
 
-today = datetime.now()      # get todays date and time
+# Datetime conversion of string in caches
 
-compareDate = compareDate[:10]  # slice so we only get the year month date
+compareDate = datetime.strptime(compareDate[:10], '%Y-%m-%d')    # convert cached value to datetime for timedelta evaluation, slice to only get month year date
 
-compareDate = datetime.strptime(compareDate, '%Y-%m-%d')    # convert cached value to datetime for timedelta evaluation
-
-compareDateTwo = compareDateTwo[:19]
-
-compareDateTwo = datetime.strptime(compareDateTwo, '%Y-%m-%d %H:%M:%S')
+compareDateTwo = datetime.strptime(compareDateTwo[:19], '%Y-%m-%d %H:%M:%S')
 
 
-print(compareDate)
+def cacheUpdate(today=datetime.now()):
 
-    # Compare cached static data
-if today >= compareDate + timedelta(days=13): # if 13 days have passed since cached date, then update json cache
-    print('today is now more than cached date')
-    with open('cached_data\\st_champion_data.json', 'w') as champCache: # cache champion data
-        data = lol.data_dragon.champions(gameVersion, full=True)['data']
-        json.dump(data, champCache, indent=4)
-    with open('cached_data\\st_item_data.json', 'w') as itemCache:      # cache item data
-        data = lol.data_dragon.items(gameVersion)
-        json.dump(data, itemCache, indent=4)
-    with open('cached_data\\map_data.json', 'w') as mapCache:    #cache map data
-        data = lol.data_dragon.maps(gameVersion)
-        json.dump(data, mapCache, indent=4)
-    with open('basic_data.json', 'r+') as b:
-        data = json.load(b)
-        data['cacheDate'] = str(today)
-        b.seek(0)
-        json.dump(data, b, indent=4)
-        b.truncate()
-   # print('cached date now updated')
+    # Compare cached static data, time is 13 days
+    if today >= compareDate + timedelta(days=13): # if 13 days have passed since cached date, then update json cache
+        print('today is now more than cached date')
+        with open('cached_data\\st_champion_data.json', 'w') as champCache: # cache champion data
+            data = lol.data_dragon.champions(gameVersion, full=True)['data']
+            json.dump(data, champCache, indent=4)
+        with open('cached_data\\st_item_data.json', 'w') as itemCache:      # cache item data
+            data = lol.data_dragon.items(gameVersion)
+            json.dump(data, itemCache, indent=4)
+        with open('cached_data\\map_data.json', 'w') as mapCache:    #cache map data
+            data = lol.data_dragon.maps(gameVersion)
+            json.dump(data, mapCache, indent=4)
+        with open('basic_data.json', 'r+') as b:
+            data = json.load(b)
+            data['cacheDate'] = str(today)
+            b.seek(0)
+            json.dump(data, b, indent=4)
+            b.truncate()
 
-else:
-   # print('compareDate has not passed yet, cache will not update')
-    pass
-    # Compare stored matchlist data
+    #code for dynamic matchlist data
+    if today >= compareDateTwo + timedelta(minutes=35):
+        with open('cached_data\\matchlist_data.json', 'r+') as matchlistData: #Clear matchlist cache after 35 minutes
+            data = json.load(matchlistData)
+            data.clear()
+            matchlistData.seek(0)
+            json.dump(data, matchlistData, indent=4)
+            matchlistData.truncate()
 
-if today >= compareDateTwo + timedelta(minutes=35):
-    with open('cached_data\\matchlist_data.json', 'r+') as matchlistData: #Clear matchlist cache after 35 minutes
-        data = json.load(matchlistData)
-        data.clear()
-        matchlistData.seek(0)
-        json.dump(data, matchlistData, indent=4)
-        matchlistData.truncate()
+        with open('basic_data.json', 'r+') as b:        # Update compare date for matchlist
+            data = json.load(b)
+            data['cacheMatch'] = str(today)
+            b.seek(0)
+            json.dump(data, b, indent=4)
+            b.truncate()
+            print('matchlist cleared!')
 
-    with open('basic_data.json', 'r+') as b:        # Update compare date for matchlist
-        data = json.load(b)
-        data['cacheMatch'] = str(today)
-        b.seek(0)
-        json.dump(data, b, indent=4)
-        b.truncate()
-        print('matchlist cleared!')
-
+cacheUpdate()
 
 champDict = {}
 itemDict = {}
@@ -446,7 +438,7 @@ def analyzeMatchlist(name, mapId=11, recent=5):   # Recent will analyze last 5 g
     return f"{name} {champString} and{extraString} {kdaString}"
 
 
-# print(analyzeMatchlist('stacheross', recent=10))
+
 
  # print(transcribeDict(getPlayerMatch('Umbreon 62'))) # line to test script with my summonner name
 
