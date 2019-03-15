@@ -32,6 +32,16 @@ I plan to.
 * Updated `!helplist`
 * Added and updated comments throughout code
 
+-**Version 0.2.0** <sub><sup>2/21/19</sup></sub>
+* Fixed some issues of `!randomfact` when it came to outputting facts
+* Updated and reformatted `!helplist' adding potentially more menus (They still don't look pretty)
+* Added new commands such as `!grayscale`, `!sharpen`, `!enhance` and `!mememaker`
+* Bot now has the power to process images and output them through commands!
+* Added a folder to store meme templates, shaders, font and other image related goodness
+* Created `imageinfo.py` to help store image related functions
+* Adjusted some code in `main.py` and `summonerinfo.py` for better readability
+* Added even more comments!
+* Uses a `tempimg.png` file to store outputted images
 
 
 
