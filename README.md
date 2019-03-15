@@ -43,5 +43,13 @@ I plan to.
 * Added even more comments!
 * Uses a `tempimg.png` file to store outputted images
 
+-**Version 0.2.1** <sub><sup>3/15/19</sup></sub>
+* Added all the cache stuff into a function
+* Added and fixed more comments slightly
+* Fixed issue of the `!r34s` giving back invalid links, will now only give links from reddit, imgur and gfycat
+* More potential content for `!r34s`
+* `!redcomment` now also gives post name as further comment context
+
+
 
 
